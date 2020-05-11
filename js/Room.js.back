@@ -1,0 +1,372 @@
+'use strict';
+
+import React, { Component } from 'react';
+
+import {StyleSheet} from 'react-native';
+
+import {
+  ViroScene,
+  Viro3DObject,
+  ViroNode,
+  ViroSpotLight,
+  ViroDirectionalLight,
+  ViroAmbientLight,
+  ViroMaterials,
+  ViroText,
+  Viro360Image,
+} from 'react-viro';
+
+export default class Room extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {} // Set initial state here
+  } 
+
+  render() {
+    return (
+      <ViroScene>
+        <Viro360Image source={require("./res/background.jpg") } />
+        
+        { this.initLight()}
+
+        { this.renderRoom() }
+        {/* { this.renderTable() }
+        { this.renderBed() }
+        { this.renderWallshelf() }
+        { this.renderBookshelf() } */}
+
+      </ViroScene>
+    );
+  }
+
+  initLight() {
+    return(
+      <ViroNode>
+        <ViroAmbientLight color="#ffffff" intensity={250}/>
+        <ViroDirectionalLight color="#ffffff" direction={[-0.5, -1,  -0.5]}/>
+      </ViroNode>
+    )
+  }
+
+  /** Room */
+  renderRoom() {
+    return (
+      <ViroNode>
+        <Viro3DObject 
+          source={}
+          resources={[require('./obj/test2.mtl'),
+                      require('./obj/wood_texture.jpg')]}
+          position={[0, 0, -5]} 
+          scale={[2, 2, 2]} 
+          rotation={[0, 0, 0]}
+          type="OBJ"  
+        />
+        {
+          /* <Viro3DObject 
+          source={require('./obj/room/Floor.obj')}
+          position={[0, -10, 0]} 
+          scale={[0.1, 0.15, 0.075]} 
+          rotation={[0, 0, 180]}
+          materials={['floor']}
+          type="OBJ"  
+        />
+        <Viro3DObject source={require('./obj/room/BackWall.obj')}
+          position={[0, -10, 0]} 
+          scale={[0.1, 0.15, 0.075]} 
+          rotation={[0, 0, 180]}
+          materials={['walls']}
+          type="OBJ"  
+        /> 
+        <Viro3DObject source={require('./obj/room/FrontWall.obj')}
+          position={[0, -10, 0]} 
+          scale={[0.1, 0.15, 0.075]} 
+          rotation={[0, 0, 180]}
+          materials={['walls']}
+          type="OBJ"  
+        />  
+        <Viro3DObject source={require('./obj/room/RightWall.obj')}
+          position={[0, -10, 0]} 
+          scale={[0.1, 0.15, 0.075]} 
+          rotation={[0, 0, 180]}
+          materials={['walls']}
+          type="OBJ"  
+        />
+        <Viro3DObject source={require('./obj/room/LeftWall.obj')}
+          position={[0, -10, 0]} 
+          scale={[0.1, 0.15, 0.075]} 
+          rotation={[0, 0, 180]}
+          materials={['walls']}
+          type="OBJ"  
+        />
+        <Viro3DObject source={require('./obj/room/Windowsil.obj')}
+          position={[13.5, -4.5, -17]} 
+          scale={[0.06, 0.1, 0.1]} 
+          rotation={[0, -90, 0]}
+          materials={['darkwood']}
+          type="OBJ"  
+        />
+        <Viro3DObject source={require('./obj/room/Windowsil.obj')}
+          position={[13.5, -4.5, 0.6]} 
+          scale={[0.11, 0.1, 0.1]} 
+          rotation={[0, -90, 0]}
+          materials={['darkwood']}
+          type="OBJ"  
+        />
+        <Viro3DObject source={require('./obj/room/Floor.obj')}
+          position={[0, 9, 0]}  
+          scale={[0.1, 0.15, 0.075]} 
+          rotation={[0, 0, 0]}
+          materials={['floor']} 
+          type="OBJ" 
+        />
+        <Viro3DObject source={require('./obj/room/Carpet.obj')}
+          position={[0, -10, 0]}  
+          scale={[1, 1, 1]} 
+          rotation={[0, 0, 0]}
+          materials={['carpet']} 
+          type="OBJ" 
+        /> */}
+      </ViroNode>
+    )
+  }
+
+  /** Table quest */
+  // renderTable() {
+  //   return(
+  //     <ViroNode>
+  //       <Viro3DObject 
+  //         source={require('./obj/table/Table.obj')}
+  //         position={[12, -3.5, -18]} 
+  //         scale={[0.125, 0.15, 0.15]} 
+  //         rotation={[0, 0, 180]}
+  //         materials={['table']}
+  //         type="OBJ"  
+  //       />
+  //     </ViroNode>
+  //   )
+  // }
+
+  // /** Bed quest */
+  // renderBed() {
+  //   return(
+  //     <ViroNode>
+  //         <Viro3DObject 
+  //           source={require('./obj/bed/Bed.obj')}
+  //           position={[-13, -10, -3.5]} 
+  //           scale={[0.15, 0.15, 0.15]} 
+  //           rotation={[-90, 0, 0]}
+  //           materials={['darkwood']} 
+  //           type="OBJ"  
+  //         />
+  //         <Viro3DObject 
+  //           source={require('./obj/bed/Matress.obj')}
+  //           position={[-13, -10, -3.5]} 
+  //           scale={[0.15, 0.15, 0.15]} 
+  //           rotation={[-90, 0, 0]}
+  //           materials={['matress']} 
+  //           type="OBJ"  
+  //         />
+  //         <Viro3DObject 
+  //           source={require('./obj/bed/Covering.obj')}
+  //           position={[-6.5, -5.5, -9]} 
+  //           scale={[1.025, 1, 1.25]} 
+  //           rotation={[0, 90, 0]}
+  //           materials={['covering']} 
+  //           type="OBJ"  
+  //         />
+  //         <Viro3DObject 
+  //           source={require('./obj/bed/Pillow.obj')}
+  //           position={[-6, -3, -10]} 
+  //           scale={[1.2, 1.2, 1.2]} 
+  //           rotation={[45, 0, 0]}
+  //           materials={['pillow']} 
+  //           type="OBJ"  
+  //         />
+  //         <Viro3DObject 
+  //           source={require('./obj/bed/Pillow.obj')}
+  //           position={[-3.75, -3, -10]} 
+  //           scale={[1.2, 1.2, 1.2]} 
+  //           rotation={[45, 0, 0]}
+  //           materials={['pillow']} 
+  //           type="OBJ"  
+  //         />
+  //     </ViroNode>
+  //   )
+  // } 
+  
+  // /** Bookshelfquest */
+  // renderBookshelf() {
+  //   return(
+  //     <ViroNode>
+  //       <Viro3DObject 
+  //         source={require('./obj/bookshelf/Bookshelf.obj')}
+  //         position={[13.8, -10, -8.5]} 
+  //         scale={[0.15, 0.1125, 0.125]} 
+  //         rotation={[90, 0, 180]}
+  //         materials={['darkwood']} 
+  //         type="OBJ"  
+  //       />
+
+  //       <Viro3DObject 
+  //         source={require('./obj/bookshelf/BookshelfLarge.obj')}
+  //         position={[13.8, -10, 18]} 
+  //         scale={[0.15, 0.1125, 0.125]} 
+  //         rotation={[90, 90, 180]}
+  //         materials={['darkwood']} 
+  //         type="OBJ"  
+  //       />
+  //     </ViroNode>
+  //   )
+  // }
+  
+  // /** Wallshelf quest */
+  // renderWallshelf() {
+  //   let minutes = '00',
+  //       seconds = '00';
+
+  //   // let showTime = (m, s) => {
+  //   //   setTimeout(_ => {
+  //   //     s += 1;
+
+  //   //     if(s < 10) s = '0' + s;
+
+  //   //     render(
+          
+  //   //     )
+  //   //     return(
+  //   //       <ViroNode>
+  //   //         <ViroText
+  //   //             text = {m}
+  //   //             textAlign="center"
+  //   //             textAlignVertical="top"
+  //   //             width={1} height={1}
+  //   //             style={{fontFamily:"Arial", fontSize: 48, fontWeight: 'bold', color:"#fff"}}
+  //   //             position={[-0.5, 0.5, -8]}
+  //   //         />
+  //   //         <ViroText
+  //   //             text = {s}
+  //   //             textAlign="center"
+  //   //             textAlignVertical="top"
+  //   //             width={1} height={1}
+  //   //             style={{fontFamily:"Arial", fontSize: 48, fontWeight: 'bold', color:"#fff"}}
+  //   //             position={[-0.5, 0, -8]}
+  //   //         />
+  //   //       </ViroNode>
+  //   //       )
+  //   //   }, 1000) 
+  //   // }
+
+  //   const SET_TIME = () => {
+  //     // setInterval( _ => {
+  //         // seconds += 1;
+  //         return seconds;
+  //       // }, 1000)
+  //   } 
+
+  //   return(
+  //     <ViroNode>
+  //       {/* <Viro3DObject 
+  //         source={require('./obj/wallshelf/Wallshelf.obj')}
+  //         position={[-13, 2, -17]} 
+  //         scale={[0.2, 0.15, 0.2]} 
+  //         rotation={[-90, 0, 0]}
+  //         materials={['darkwood']} 
+  //         type="OBJ"  
+  //       />
+  //       <Viro3DObject 
+  //         source={require('./obj/wallshelf/WallshelfSmall.obj')}
+  //         position={[10, 2, -17]} 
+  //         scale={[0.15, 0.1, 0.15]} 
+  //         rotation={[-90, 180, 0]}
+  //         materials={['darkwood']} 
+  //         type="OBJ"  
+  //       /> */}
+  //       <ViroText
+  //           text="TIME"
+  //           textAlign="center"
+  //           textAlignVertical="top"
+  //           width={1} height={1}
+  //           style={{fontFamily:"Arial", fontSize: 72, fontWeight: 'bold', color:"#fff"}}
+  //           position={[-0.5, 2, -9]}
+  //       />
+  //       <ViroText
+  //           text = {minutes}
+  //           textAlign="center"
+  //           textAlignVertical="top"
+  //           width={1} height={1}
+  //           style={{fontFamily:"Arial", fontSize: 108, fontWeight: 'bold', color:"#fff"}}
+  //           position={[-0.5, 0.5, -9]}
+  //       />
+  //       <ViroText
+  //           text = {SET_TIME()}
+  //           textAlign="center"
+  //           textAlignVertical="top"
+  //           width={1} height={1}
+  //           style={{fontFamily:"Arial", fontSize: 108, fontWeight: 'bold', color:"#fff"}}
+  //           position={[-0.5, -0.5, -9]}
+  //       />
+  //       {/* {showTime(minutes, seconds)} */}
+  //     </ViroNode>
+  //   )
+  // }
+
+  // /** Wardrobe quest */
+  // renderWardrobe() {
+  //   // ...
+  // }
+
+  // /** Pictures quest */
+  // renderWardrobe() {
+  //   // ...
+  // }
+}
+
+// colors of objects
+ViroMaterials.createMaterials({ 
+  // darkwood: {
+  //     lightingModel: "Blinn",
+  //     diffuseColor: '#541717'
+  // },
+  // floor: {
+  //   lightingModel: "Blinn",
+  //   diffuseColor: '#fed39f'
+  // },
+  // carpet: {
+  //   lightingModel: "Phong",
+  //   diffuseTexture: require('./res/carpet.jpg'),
+  //   specularTexture: require('./res/carpet.jpg'),
+  //   writesToDepthBuffer: true,
+  //   readsFromDepthBuffer: true, 
+  // },
+  // table: {
+  //   lightingModel: "Blinn",
+  //   diffuseColor: '#df7861'
+  // },
+  pillow: {
+    lightingModel: "Blinn",
+    diffuseTexture: require('./res/pillow.jpg'),
+    specularTexture: require('./res/pillow.jpg'),
+    writesToDepthBuffer: true,
+    readsFromDepthBuffer: true, 
+  },
+  covering: {
+    lightingModel: "Blinn",
+    diffuseTexture: require('./res/pillow.jpg'),
+    specularTexture: require('./res/pillow.jpg'),
+    writesToDepthBuffer: true,
+    readsFromDepthBuffer: true, 
+  },
+  // matress: {
+  //   lightingModel: "Blinn",
+  //   diffuseColor: '#ddd'
+  // },
+  // walls: {
+  //   lightingModel: "Blinn",
+  //   diffuseColor: '#e8f9e9'
+  // }  
+});
+
+module.exports = Room;
+ 
