@@ -31,7 +31,7 @@ npm install
 ```
 
 6. Download the Viro Media Testbed App (only Android for ver 1.0.0)
-https://play.google.com/store/apps/details?id=com.viromedia.viromedia
+- https://play.google.com/store/apps/details?id=com.viromedia.viromedia
 
 7. In project folder run:
 ```sh
