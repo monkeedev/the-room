@@ -8,19 +8,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  Text,
-  View,
-  StyleSheet,
-  PixelRatio,
-  TouchableHighlight,
-} from 'react-native';
-
-import {
-  ViroVRSceneNavigator,
-  ViroARSceneNavigator
-} from 'react-viro';
+import { ViroVRSceneNavigator } from 'react-viro';
 
 /*
  TODO: Insert your API key below
@@ -30,10 +18,12 @@ var sharedProps = {
 }
 
 // Sets the default scene you want for AR and VR
-var InitialVRScene = require('./js/Game');
+// var InitialARScene = require('./js/HelloWorldSceneAR');
+var InitialVRScene = require('./js/App.tsx');
 
 var UNSET = "UNSET";
-var VR_NAVIGATOR_TYPE = "VR";
+// var VR_NAVIGATOR_TYPE = "VR";
+// var AR_NAVIGATOR_TYPE = "AR";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
@@ -48,6 +38,7 @@ export default class ViroSample extends Component {
       sharedProps : sharedProps
     }
     this._getVRNavigator = this._getVRNavigator.bind(this);
+    this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
 
@@ -56,16 +47,12 @@ export default class ViroSample extends Component {
   render() {
     return this._getVRNavigator();
   }
-
+  
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
       <ViroVRSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} 
-        onExitViro={this._exitViro}
-        // remove for stereo (VR) mode
-        vrModeEnabled={false}
-        />
+        initialScene={{scene: InitialVRScene}} onExitViro={this._exitViro}/>
     );
   }
 

@@ -1,10 +1,4 @@
 {
-  "expo": {
-    "name": "The Room",
-    "description": "Miniquests for people with OCD",	
-    "sdkVersion": "32.0.0",
-    "android": {
-      "package": "com.yourcompany.yourappname"
-    }
-  }  
+  "name": "ocdroom",
+  "displayName": "ocdroom"
 }
