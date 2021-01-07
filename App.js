@@ -9,6 +9,8 @@
 
 import React, { Component } from 'react';
 import { ViroVRSceneNavigator } from 'react-viro';
+import { Provider } from 'react-redux';
+import { store } from './js/redux/store';
 
 /*
  TODO: Insert your API key below
@@ -18,8 +20,7 @@ var sharedProps = {
 }
 
 // Sets the default scene you want for AR and VR
-// var InitialARScene = require('./js/HelloWorldSceneAR');
-var InitialVRScene = require('./js/App.tsx');
+var InitialVRScene = require('./js/Room');
 
 var UNSET = "UNSET";
 // var VR_NAVIGATOR_TYPE = "VR";
@@ -45,14 +46,19 @@ export default class ViroSample extends Component {
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
   // if you are building a specific type of experience.
   render() {
-    return this._getVRNavigator();
+    return this._getVRNavigator()
   }
   
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
-      <ViroVRSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} onExitViro={this._exitViro}/>
+      <Provider store={store}>
+        <ViroVRSceneNavigator 
+          {...this.state.sharedProps}
+          initialScene={{scene: InitialVRScene}} 
+          onExitViro={this._exitViro}
+        />
+      </Provider>
     );
   }
 

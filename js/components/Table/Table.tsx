@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViroNode, Viro3DObject, ViroMaterials } from 'react-viro';
+import { useStore, useDispatch } from 'react-redux';
+import { changeCameraPosition } from '../../redux/actions';
+import { LOCATIONS } from '../../common/constants';
 
 export function Table() {
   const [opacity, setOpacity] = useState(1);
+  const {camera} = useStore().getState();
+  const dispatch = useDispatch();
 
-  const handleTableClick = () => {
-    console.log('@handler');
+  const handleClick = () => {
+    if(camera.location !== 'table') {
+      const o = { location: 'table', ...LOCATIONS.table };
+      
+      dispatch(changeCameraPosition(o))
+    }
+
     // this.state.currentLocationPosition !== LOCATIONS[0].where ? 
     // _ => this.changeCameraView(LOCATIONS[0].name, LOCATIONS[0].where) : null
   }
 
-  const handleTableHover = () => {
-    console.log('@handler');
-    // this.state.currentLocationPosition !== LOCATIONS[0].where ? 
-    // isHovering => this._onHover(isHovering, LOCATIONS[0].name) : _ => this.setState({ tableOpacity: 1 }) 
+  const handleHover = (isHovering) => {
+    // if(camera.location === 'table') {
+    //   return null;
+    // } else {
+      setOpacity(isHovering ? 0.8 : 1);
+    // }
   }
 
   return (
     <ViroNode 
-      onClick={handleTableClick}
-      onHover={handleTableHover}
+      onClick={handleClick}
+      onHover={handleHover}
       opacity={opacity}>
       <Viro3DObject 
         source={require('../../obj/table/Table.obj')}

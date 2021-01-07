@@ -7,7 +7,7 @@ import { Windowsills } from './Windowsills';
 // import { Carpet } from './Carpet';
 import { Ceiling } from './Ceiling';
 
-export const Room = () => {
+export const Interior = () => {
   return (
     <ViroNode>
       <Ceiling />
