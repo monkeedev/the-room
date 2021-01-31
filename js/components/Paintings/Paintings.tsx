@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
+import { useStore } from 'react-redux';
 import { ViroNode, Viro3DObject, ViroMaterials } from 'react-viro';
+import { LOCATIONS } from '../../common/constants';
+import { useObjectInteractions } from '../../hooks/useObjectInteractions';
+
+const SMALL_PAINTINGS_SCALE = [.8, .8, .8]
+const SMALL_PAINTINGS_ROTATION = [0, 0, 0]
 
 export function Paintings() {
-  const [opacity, setOpacity] = useState(1);
+  const { camera } = useStore().getState();
+  const {opacity, hoverObject, moveToObject} = useObjectInteractions(LOCATIONS.paintings);
   const [wasCorrected, setCorrection] = useState(false);
 
   const handleClick = () => {
-    console.log('@handler');
-    // this.changeCameraView(LOCATIONS[1].name, LOCATIONS[1].where
-  }
-
-  const handleHover = () => {
-    console.log('@handler');
-    // this.state.currentLocationPosition !== LOCATIONS[0].where ? 
-    // isHovering => this._onHover(isHovering, LOCATIONS[0].name) : _ => this.setState({ tableOpacity: 1 }) 
-    // isHovering => this._onHover(isHovering, LOCATIONS[1].name)
+    if(camera.location === LOCATIONS.paintings.name) {
+      setCorrection(true)
+    }
   }
 
   return (
-        <ViroNode>
+        <ViroNode
+          onClick={moveToObject}
+          onHover={hoverObject}
+          opacity={opacity}
+        >
           <ViroNode 
             onClick={handleClick}
-            onHover={handleHover}
             opacity={ opacity } 
             position={wasCorrected ? [0, 0, 0] : [0, .5, 0] } 
             rotation={wasCorrected ? [0, 0, 0] : [10, 0, 0]}
@@ -49,8 +53,8 @@ export function Paintings() {
             source={require('../../obj/frames/FrameRect.obj')}
             resources={[require('../../obj/frames/Frame.mtl')]}
             position={[-8.5, -2.5, -.2]}
-            scale={[.8, .8, .8]} 
-            rotation={[0, 0, 0]}
+            scale={SMALL_PAINTINGS_SCALE} 
+            rotation={SMALL_PAINTINGS_ROTATION}
             type="OBJ"
             materials={['closet']}
           />
@@ -58,8 +62,8 @@ export function Paintings() {
             source={require('../../obj/frames/FrameRect.obj')}
             resources={[require('../../obj/frames/Frame.mtl')]}
             position={[-8.5, -2.5, 2.2]}
-            scale={[.8, .8, .8]}
-            rotation={[0, 0, 0]}
+            scale={SMALL_PAINTINGS_SCALE}
+            rotation={SMALL_PAINTINGS_ROTATION}
             type="OBJ"
             materials={['closet']}
           />

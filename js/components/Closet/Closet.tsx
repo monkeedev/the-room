@@ -1,25 +1,15 @@
 import React, { useState } from 'react';
 import { ViroNode, Viro3DObject, ViroMaterials } from 'react-viro';
+import { LOCATIONS } from '../../common/constants';
+import { useObjectInteractions } from '../../hooks/useObjectInteractions';
 
 export function Closet() {
-  const [opacity, setOpacity] = useState(1);
-
-  const handleClick = () => {
-    console.log('@handler');
-    // this.changeCameraView(LOCATIONS[1].name, LOCATIONS[1].where
-  }
-
-  const handleHover = () => {
-    console.log('@handler');
-    // this.state.currentLocationPosition !== LOCATIONS[0].where ? 
-    // isHovering => this._onHover(isHovering, LOCATIONS[0].name) : _ => this.setState({ tableOpacity: 1 }) 
-    // isHovering => this._onHover(isHovering, LOCATIONS[1].name)
-  }
+  const {opacity, hoverObject, moveToObject} = useObjectInteractions(LOCATIONS.closet);
 
   return (
     <ViroNode 
-      onClick={handleClick}
-      onHover={handleHover}
+      onClick={moveToObject}
+      onHover={hoverObject}
       opacity={opacity}>
       <Viro3DObject  
         source={require('../../obj/shelf/Closet.obj')}

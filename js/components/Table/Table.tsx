@@ -1,37 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ViroNode, Viro3DObject, ViroMaterials } from 'react-viro';
-import { useStore, useDispatch } from 'react-redux';
-import { changeCameraPosition } from '../../redux/actions';
 import { LOCATIONS } from '../../common/constants';
+import { useObjectInteractions } from '../../hooks/useObjectInteractions';
 
 export function Table() {
-  const [opacity, setOpacity] = useState(1);
-  const {camera} = useStore().getState();
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    if(camera.location !== 'table') {
-      const o = { location: 'table', ...LOCATIONS.table };
-      
-      dispatch(changeCameraPosition(o))
-    }
-
-    // this.state.currentLocationPosition !== LOCATIONS[0].where ? 
-    // _ => this.changeCameraView(LOCATIONS[0].name, LOCATIONS[0].where) : null
-  }
-
-  const handleHover = (isHovering) => {
-    // if(camera.location === 'table') {
-    //   return null;
-    // } else {
-      setOpacity(isHovering ? 0.8 : 1);
-    // }
-  }
+  const {opacity, hoverObject, moveToObject} = useObjectInteractions(LOCATIONS.table);
 
   return (
     <ViroNode 
-      onClick={handleClick}
-      onHover={handleHover}
+      onClick={moveToObject}
+      onHover={hoverObject}
       opacity={opacity}>
       <Viro3DObject 
         source={require('../../obj/table/Table.obj')}

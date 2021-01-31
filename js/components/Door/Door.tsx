@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
+import { useStore } from 'react-redux';
 import { ViroNode, Viro3DObject, ViroMaterials, ViroPolygon } from 'react-viro';
+import { LOCATIONS } from '../../common/constants';
+import { useObjectInteractions } from '../../hooks/useObjectInteractions';
 
 export function Door() {
-  const [isDoorClosed, closeDoor] = useState(false);
-
+  const [isDoorClosed, toggleDoor] = useState(false);
+  const {opacity, hoverObject, moveToObject} = useObjectInteractions(LOCATIONS.door);
+  const { camera } = useStore().getState();
+  
   const handleDoor = () => {
-    console.log('@handler');
-    // this.state.currentLocationPosition !== LOCATIONS[5].where ? 
-    // _ => this.changeCameraView(LOCATIONS[5].name, LOCATIONS[5].where) : _ => this.closeDoor()
+    if(camera.location === LOCATIONS.door.name) {
+      toggleDoor(!isDoorClosed)
+    }
   }
 
   return (
-    <ViroNode>
+    <ViroNode
+      opacity={opacity}
+      onClick={moveToObject}
+      onHover={hoverObject}
+    >
       <ViroPolygon
         position={[-8.5, -7.5, 15]}
         scale={[4.75, 9.5, 1]}   

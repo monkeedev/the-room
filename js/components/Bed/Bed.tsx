@@ -1,37 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ViroNode, Viro3DObject, ViroMaterials } from 'react-viro';
-import { useStore, useDispatch } from 'react-redux';
-import { changeCameraPosition } from '../../redux/actions';
 import { LOCATIONS } from '../../common/constants';
+import { useObjectInteractions } from '../../hooks/useObjectInteractions';
 
 export function Bed() {
-  const [opacity, setOpacity] = useState(1);
-  const {camera} = useStore().getState();
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    if(camera.location !== 'bed') {
-      const o = { location: 'bed', ...LOCATIONS.bed };
-      
-      dispatch(changeCameraPosition(o))
-    }
-    
-    // this.state.currentLocationPosition !== LOCATIONS[0].where ? 
-    // _ => this.changeCameraView(LOCATIONS[0].name, LOCATIONS[0].where) : null
-  }
-
-  const handleHover = (isHovering) => {
-    // if(camera.location === 'bed') {
-    //   return null;
-    // } else {
-      setOpacity(isHovering ? 0.8 : 1);
-    // }
-  }
-
+  const {opacity, hoverObject, moveToObject} = useObjectInteractions(LOCATIONS.bed);
+  
   return (
     <ViroNode 
-      onClick={handleClick}
-      onHover={handleHover}
+      onClick={moveToObject}
+      onHover={hoverObject}
       opacity={opacity}>
       
       <Viro3DObject 
